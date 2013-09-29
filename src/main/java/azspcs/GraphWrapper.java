@@ -15,6 +15,7 @@ import java.util.Set;
 public class GraphWrapper {
     private final SimpleWeightedGraph<Integer, DefaultWeightedEdge> graph;
     private final Map<Integer, Integer> nodeToScore;
+    private final GraphCloner cloner = new GraphCloner();
 
     public GraphWrapper(SimpleWeightedGraph<Integer,DefaultWeightedEdge> graph, Map<Integer, Integer> nodeToScore) {
         this.graph = graph;
@@ -52,7 +53,7 @@ public class GraphWrapper {
     }
 
     private GraphWrapper createNewGraph(DefaultWeightedEdge edge, Integer weight) {
-        SimpleWeightedGraph<Integer, DefaultWeightedEdge> clonedGraph = cloneThe(graph);
+        SimpleWeightedGraph<Integer, DefaultWeightedEdge> clonedGraph = cloner.cloneThe(graph);
         Map<Integer, Integer> clonedMap = Maps.newHashMap(nodeToScore);
         Integer populated = populated(edge);
         Integer unpopulated = unpopulated(edge);
@@ -73,18 +74,6 @@ public class GraphWrapper {
 
         if (!verified(clonedGraph)) return null;
         return new GraphWrapper(clonedGraph, clonedMap);
-    }
-
-    private SimpleWeightedGraph<Integer, DefaultWeightedEdge> cloneThe(SimpleWeightedGraph<Integer, DefaultWeightedEdge> graph) {
-        SimpleWeightedGraph<Integer, DefaultWeightedEdge> clone = new SimpleWeightedGraph<Integer, DefaultWeightedEdge>(DefaultWeightedEdge.class);
-        for (Integer integer : graph.vertexSet()) {
-            clone.addVertex(integer);
-        }
-        Set<DefaultWeightedEdge> edges = graph.edgeSet();
-        for (DefaultWeightedEdge edge : edges) {
-            clone.setEdgeWeight(clone.addEdge(graph.getEdgeSource(edge), graph.getEdgeTarget(edge)), graph.getEdgeWeight(edge));
-        }
-        return clone;
     }
 
     private boolean verified(SimpleWeightedGraph<Integer, DefaultWeightedEdge> clonedGraph) {

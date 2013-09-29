@@ -87,47 +87,6 @@ public class GraphWrapperTest {
         }
     }
 
-
-    @Test
-    public void shouldIterateFirstRealCase(){
-        Map<Integer,Integer> scores = Maps.newHashMap();
-        scores.put(0,0);
-        scores.put(1,55-4);
-
-        SimpleWeightedGraph<Integer, DefaultWeightedEdge> graph = new SimpleWeightedGraph<Integer, DefaultWeightedEdge>(DefaultWeightedEdge.class);
-        for (int i = 0; i < 11; i++){
-            graph.addVertex(i);
-        }
-
-        for (int i = 0; i < 11; i++){
-            for (int j = i+1; j < 11; j++){
-                graph.addEdge(i, j);
-            }
-        }
-
-        for (DefaultWeightedEdge defaultWeightedEdge : graph.edgeSet()) {
-            graph.setEdgeWeight(defaultWeightedEdge, -1);
-        }
-
-        graph.removeEdge(5,6);
-        graph.removeEdge(4,6);
-        graph.removeEdge(3,6);
-        graph.removeEdge(4,5);
-
-        graph.setEdgeWeight(graph.getEdge(0, 1), 55-4);
-
-        Set<GraphWrapper> graphWrappers = Sets.newHashSet(new GraphWrapper(graph, scores));
-        while (!graphWrappers.isEmpty()){
-            Set<GraphWrapper> iterations = Sets.newHashSet();
-            for (GraphWrapper graphWrapper : graphWrappers) {
-                iterations.addAll(graphWrapper.iterate());
-            }
-            System.out.println("" + graphWrappers.size());
-            System.out.println(" " + graphWrappers.iterator().next());
-            graphWrappers = iterations;
-        }
-    }
-
     private GraphWrapper createTestGraphWrapper() {
         Map<Integer,Integer> scores = Maps.newHashMap();
 

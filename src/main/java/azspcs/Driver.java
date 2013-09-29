@@ -30,12 +30,14 @@ public class Driver {
 
         Set<GraphWrapper> graphWrappers = Sets.newHashSet(new GraphWrapper(graph, scores));
         while (!graphWrappers.isEmpty()){
-            Set<GraphWrapper> iterations = Sets.newHashSet();
-            for (GraphWrapper graphWrapper : graphWrappers) {
-                iterations.addAll(graphWrapper.iterate());
-            }
             System.out.println("" + graphWrappers.size());
             System.out.println(" " + graphWrappers.iterator().next());
+            Set<GraphWrapper> iterations = Sets.newHashSet();
+            int count = 1;
+            for (GraphWrapper graphWrapper : graphWrappers) {
+                if (graphWrappers.size()>1000 && count++>1000) break;
+                iterations.addAll(graphWrapper.iterate());
+            }
             graphWrappers = iterations;
         }
     }
