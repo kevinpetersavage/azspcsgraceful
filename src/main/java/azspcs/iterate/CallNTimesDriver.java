@@ -13,7 +13,7 @@ public class CallNTimesDriver {
     public static void main(String[] args){
         int nodes = 11;
         int maxEdgesForCompleteGraph = (nodes * (nodes-1)) / 2;
-        int maxEdges = maxEdgesForCompleteGraph - 10;
+        int maxEdges = maxEdgesForCompleteGraph - 15;
 
         SimpleWeightedGraph<Integer, DefaultWeightedEdge> graph = new EmptyGraphFactory().build();
         graph.addVertex(0);
