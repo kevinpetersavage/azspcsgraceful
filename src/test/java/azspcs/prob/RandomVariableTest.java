@@ -36,4 +36,11 @@ public class RandomVariableTest {
 
         assertThat(twos).isGreaterThan(others);
     }
+
+    @Test
+    public void toStringReturnsDescriptives(){
+        String string = new RandomVariable(10, new Random()).toString();
+        assertThat(string).isEqualTo("[avg:5.000,std:3.177,size:110]");
+
+    }
 }

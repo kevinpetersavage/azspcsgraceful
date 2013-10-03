@@ -45,7 +45,9 @@ public class IterativeGraphWrapper {
             } else {
                 return emptyList();
             }
-
+        }
+        if (modified.containsEdge(node, newNode)){
+            return emptyList();
         }
 
         modified.addEdge(node, newNode);
