@@ -17,7 +17,7 @@ public class RandomVariable {
         this.random = random;
         this.distribution = Lists.newArrayList();
         for (int i = 0; i <= to; i++){
-            for (int j = 0; j < 10; j++){
+            for (int j = 0; j < 5; j++){
                 distribution.add(i);
             }
         }
@@ -29,9 +29,9 @@ public class RandomVariable {
         return lastReturnValue;
     }
 
-    public void boost(){
+    public void boost(int score){
         if (lastReturnValue != null){
-            boost(lastReturnValue, 1);
+            boost(lastReturnValue, score);
         }
     }
 

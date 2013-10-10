@@ -3,6 +3,7 @@ package azspcs.iterate;
 import azspcs.EmptyGraphFactory;
 import azspcs.GraphCloner;
 import azspcs.OutputFormat;
+import azspcs.checking.Completer;
 import com.google.common.collect.Lists;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleWeightedGraph;
@@ -21,7 +22,7 @@ public class IterativeGraphWrapperTest {
         int maxNodes = 5;
         int highestEdge = 9;
 
-        IterativeGraphWrapper wrapper = new IterativeGraphWrapper(new GraphCloner(), graph, maxNodes, highestEdge);
+        IterativeGraphWrapper wrapper = new IterativeGraphWrapper(new GraphCloner(), graph, maxNodes, highestEdge, new Completer(highestEdge));
         List<SimpleWeightedGraph<Integer,DefaultWeightedEdge>> result = wrapper.iterate();
 
         SimpleWeightedGraph<Integer, DefaultWeightedEdge> expected = new EmptyGraphFactory().build();
@@ -41,7 +42,7 @@ public class IterativeGraphWrapperTest {
         int maxNodes = 5;
         int highestEdge = 9;
 
-        IterativeGraphWrapper wrapper = new IterativeGraphWrapper(new GraphCloner(), graph, maxNodes, highestEdge);
+        IterativeGraphWrapper wrapper = new IterativeGraphWrapper(new GraphCloner(), graph, maxNodes, highestEdge, new Completer(highestEdge));
         List<SimpleWeightedGraph<Integer,DefaultWeightedEdge>> results = wrapper.iterate();
 
         SimpleWeightedGraph<Integer, DefaultWeightedEdge> expected1 = new EmptyGraphFactory().build();

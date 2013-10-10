@@ -2,6 +2,7 @@ package azspcs.prob;
 
 import azspcs.GraphCloner;
 import azspcs.OutputFormat;
+import azspcs.checking.Completer;
 import azspcs.iterate.IterativeGraphWrapper;
 import com.google.common.collect.Lists;
 import org.jgrapht.graph.DefaultWeightedEdge;
@@ -12,23 +13,29 @@ import java.util.Random;
 
 public class ProbabilisticDriver {
     public static void main(String[] args) {
-        int nodes = 5;
+        int nodes = 11;
         int maxEdgesInCompleteGraph = (nodes * (nodes - 1)) / 2;
-        int notUsedEdges = 1;
+        int notUsedEdges = 15;
         int maxEdges = maxEdgesInCompleteGraph - notUsedEdges;
 
         GraphCloner cloner = new GraphCloner();
+        Completer completer = new Completer(maxEdges);
         Random random = new Random();
         OutputFormat outputFormat = new OutputFormat();
 
         List<RandomVariable> variables = Lists.newArrayList();
 
-        for (int trial = 0; trial < 10000000; trial ++){
+        while(true){
             int index = 0;
             SimpleWeightedGraph<Integer, DefaultWeightedEdge> graph = singleNodeGraph(maxEdges);
             while (graph != null) {
-                IterativeGraphWrapper graphWrapper = new IterativeGraphWrapper(cloner, graph, 5, maxEdges);
+                IterativeGraphWrapper graphWrapper = new IterativeGraphWrapper(cloner, graph, nodes, maxEdges, completer);
                 List<SimpleWeightedGraph<Integer, DefaultWeightedEdge>> newGraphs = graphWrapper.iterate();
+                if (variables.size()<=index+1){
+                    for (RandomVariable boost : variables) {
+                        boost.boost(1);
+                    }
+                }
                 if (variables.size()<=index){
                     variables.add(new RandomVariable(maxEdges, random));
                 }
@@ -36,11 +43,8 @@ public class ProbabilisticDriver {
                 int i = variables.get(index).get();
                 if (i < newGraphs.size()){
                     graph = newGraphs.get(i);
-                    for (RandomVariable boost : variables) {
-                        boost.boost();
-                    }
                 } else {
-                    if (graph.edgeSet().size()>6g){
+                    if (graph.edgeSet().size()>9){
                         System.out.println("best had " + graph.edgeSet().size() + " edges " + graph.vertexSet().size() + " vertices");
                         System.out.println("variables were " + variables);
                         System.out.println(outputFormat.format(graph));
