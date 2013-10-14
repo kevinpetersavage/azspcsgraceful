@@ -11,7 +11,7 @@ import static org.fest.assertions.Assertions.assertThat;
 public class RandomVariableTest {
     @Test
     public void randomness(){
-        RandomVariable variable = new RandomVariable(2, new Random());
+        Variable variable = new RandomVariable(0, 2, new Random());
         Set<Integer> results = Sets.newHashSet();
         for(int i = 0; i<100; i++){
             results.add(variable.get());
@@ -21,7 +21,7 @@ public class RandomVariableTest {
 
     @Test
     public void boost(){
-        RandomVariable variable = new RandomVariable(2, new Random());
+        Variable variable = new RandomVariable(0, 2, new Random());
         variable.boost(2, 1000);
 
         int twos = 0;
@@ -39,8 +39,8 @@ public class RandomVariableTest {
 
     @Test
     public void toStringReturnsDescriptives(){
-        String string = new RandomVariable(10, new Random()).toString();
-        assertThat(string).isEqualTo("[avg:5.000,std:3.177,size:110]");
+        String string = new RandomVariable(0, 10, new Random()).toString();
+        assertThat(string).isEqualTo("[avg:5.000,std:3.191,size:55]");
 
     }
 }

@@ -23,7 +23,7 @@ public class ProbabilisticDriver {
         Random random = new Random();
         OutputFormat outputFormat = new OutputFormat();
 
-        List<RandomVariable> variables = Lists.newArrayList();
+        List<Variable> variables = Lists.newArrayList();
 
         while(true){
             int index = 0;
@@ -32,12 +32,12 @@ public class ProbabilisticDriver {
                 IterativeGraphWrapper graphWrapper = new IterativeGraphWrapper(cloner, graph, nodes, maxEdges, completer);
                 List<SimpleWeightedGraph<Integer, DefaultWeightedEdge>> newGraphs = graphWrapper.iterate();
                 if (variables.size()<=index+1){
-                    for (RandomVariable boost : variables) {
+                    for (Variable boost : variables) {
                         boost.boost(1);
                     }
                 }
                 if (variables.size()<=index){
-                    variables.add(new RandomVariable(maxEdges, random));
+                    variables.add(new RandomVariable(0, maxEdges, random));
                 }
 
                 int i = variables.get(index).get();

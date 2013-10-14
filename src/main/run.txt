@@ -1,0 +1,3 @@
+s3n://com.kevin.graphs/azspcsgrace-1.0-SNAPSHOT.jar
+
+azspcs.mapred.MapDriver s3://com.kevin.graphs/in s3://com.kevin.graphs/out

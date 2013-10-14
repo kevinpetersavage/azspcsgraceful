@@ -15,7 +15,7 @@ public class Driver {
     public static void main(String[] args){
         int nodes = 11;
         int maxEdges = (nodes * (nodes-1)) / 2;
-        int notUsedEdges = 11;
+        int notUsedEdges = 10;
 
         Map<Integer,Integer> scores = Maps.newHashMap();
         scores.put(0,0);
@@ -35,7 +35,7 @@ public class Driver {
             Set<GraphWrapper> iterations = Sets.newHashSet();
             int count = 1;
             for (GraphWrapper graphWrapper : graphWrappers) {
-                if (graphWrappers.size()>1000 && count++>1000) break;
+                //if (graphWrappers.size()>1000 && count++>1000) break;
                 iterations.addAll(graphWrapper.iterate());
             }
             graphWrappers = iterations;
